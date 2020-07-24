@@ -1,0 +1,121 @@
+/*Criando banco de dados*/
+
+create database db_farmacia_do_bem;
+
+/*Criando as tabelas*/
+
+use db_farmacia_do_bem;
+
+create table tb_categoria(
+id bigint auto_increment,
+nome varchar(255),
+departamento varchar(255),
+primary key(id)
+);
+
+create table tb_produto(
+id bigint auto_increment,
+nome_produto varchar(255),
+preco decimal(6,2),
+disponivel boolean,
+categoria_id bigint,
+primary key(id),
+foreign key (categoria_id ) references tb_categoria(id)
+);
+
+
+___________populando a tabela tb_categoria_________________
+
+insert into tb_categoria (nome, departamento) values
+	("Saude Feminina", "Medicamentos"),
+	("Produtos Intimos","Beleza e Higiene"),
+        ("Dor e Febre","Genericos"),
+        ("Nutriçao Esportiva","Saúde e Bem-estar"),
+        ("Geriatricos","Home Care")
+
+__________populando a tabela tb_produto_____________________
+
+
+
+insert into tb_produto (nome_produto,preco,disponivel,categoria_id)
+ values
+	("Anticoncepcional",46.49,true,1),
+           ("Teste de gravidez",18.49 , true,1),
+            ("Buscofem",20.49,true,1)
+
+
+insert into tb_produto (nome_produto,preco,disponivel,categoria_id)
+ values   
+           ("Sabonete intimo",23.99,true,2),
+           ("Desodorante Intimo",19.99,true,2),
+           ("Absorvente interno",15.18,true,2),
+           ("Coletor Menstrual",90.00,true,2)
+
+
+insert into tb_produto (nome_produto,preco,disponivel,categoria_id)
+ values   
+           ("Relaxante Muscular",8.30,true,3),
+           ("Anti-inflamatorio",12.09,true,3),
+	   ("Dipirona Sodica",16.99,true,3),
+           ("Paracetamol",11.99,true,3)
+
+
+insert into tb_produto (nome_produto,preco,disponivel,categoria_id)
+ values   
+           ("Massa Muscular",45.99,true,4),
+	   ("Adocante",14.49,true,4),
+	   ("Suplemento Vitaminico",85.87,true,4)
+
+
+insert into tb_produto (nome_produto,preco,disponivel,categoria_id)
+ values   
+           ("Fralda geriatrica",49.99,true,5),
+	   ("Muleta",66.95,true,5),
+	   ("Aparelho de pressao",188.00,true,5)
+
+___________________________________________________________________
+Trazendo todos os produtos maior que 50 reais
+
+select*from tb_produto where preco > 50.00;
+
+___________________________________________________________________
+
+trazendo os produtos com valores entre 3 e 60 reais
+
+select*from tb_produto where preco between 3 and 60;
+
+__________________________________________________________________
+Usando select e like pra trazer produtos com letra B
+
+select*from tb_produto where nome_produto like "%b%"
+
+___________________________________________________________________
+
+
+select*from tb_produto 
+ inner join tb_categoria on tb_categoria.id = tb_produto.categoria_id;
+
+
+____________________________________________________________________
+
+Trazendo todos produtos de uma categoria 
+
+select tb_produto.nome_produto, tb_produto.preco, tb_categoria.nome
+	from tb_produto
+	inner join tb_categoria on tb_categoria.id = tb_produto.categoria_id
+    	where tb_categoria.nome like "%Produtos Intimos%"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

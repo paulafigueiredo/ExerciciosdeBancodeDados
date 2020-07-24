@@ -1,0 +1,81 @@
+create database db_cursodaminhavida;
+
+use db_cursodaminhavida;
+
+create table tb_categoria(
+id bigint auto_increment,
+nome varchar (255),
+categorias varchar(255),
+primary key(id)
+);
+
+create table tb_produto(
+id bigint auto_increment,
+nome_prod varchar(255),
+preco decimal(6,2),
+ativo boolean,
+categoria_id bigint,
+primary key(id),
+foreign key(categoria_id) references tb_categoria (id)
+);
+
+
+
+populando a tabela tb_categoria:
+
+insert into tb_categoria (nome,categorias)
+  values       ("Aplicativos Moveis","Desenvolvimento"),
+               ("Economia","Finanças e Contabilidade"),
+               ("Marketing Digital","Marketing");
+
+
+Populando a tabela tb_produto:
+
+insert into tb_produto (nome_prod,preco,ativo,categoria_id)
+values        
+		("React Native",1899.00,true,1),
+         	("Kotlin",1670.00,true,1);
+
+
+
+insert into tb_produto (nome_prod,preco,ativo,categoria_id)
+values                  
+             ("Ciencia Politicas",2200.00,true,2),    
+             ("Macroeconomia",500.00,true,2);
+
+insert into tb_produto (nome_prod,preco,ativo,categoria_id)
+values                 
+              ("Google Ads",190.00,true,3),
+	      ("Google Analytics",48.00,true,3);
+
+
+chamando os produtos com preço maior que 50
+
+select*from tb_produto  where preco > 50;
+
+
+verificando os produtos entre 3 e 50 reais 
+
+select*from tb_produto where preco between 3 and 60;
+
+
+verificando se tem algum produto com  a letra J 
+ select*from tb_produto 
+     where nome_prod like "%J%";
+
+
+
+Usando inner join p buscar categoria_id
+
+select*from tb_produto
+inner join tb_categoria on tb_categoria.id = tb_produto.categoria_id
+
+
+Puxando os produtos de uma categoria especifica
+
+
+select tb_produto.nome_prod, tb_produto.preco, tb_categoria.nome
+	from tb_produto
+	inner join tb_categoria on tb_categoria.id = tb_produto.categoria_id
+    	where tb_categoria.nome like "%Aplicativos%"
+

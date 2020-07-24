@@ -1,0 +1,96 @@
+/*Criando um bando de dados*/
+
+create database db_construindo_a_nossa_vida;
+
+use db_construindo_a_nossa_vida;
+
+/*Criando as tabelas*/
+
+create table tb_categoria(
+	id bigint auto_increment,
+	nome varchar (255),
+   	departamento varchar (255),
+	primary key (id)
+);
+
+create table tb_produto(
+	id bigint auto_increment,
+	nome_produto varchar(255),
+	preco decimal(6,2),
+	produto_dispo boolean,
+	categoria_id bigint,
+   	primary key(id),
+    	foreign key(categoria_id) references tb_categoria(id)
+);
+
+______POPULANDO TB_CATEGORIAS_______________________________________________
+
+insert into tb_categoria (nome,departamento) values 
+     ("Cozinha","Eletros"),
+     ("Cama Mesa e Banho ","Textil"),
+     ("Moveis","Decoraçao"),
+     ("Material de Limpeza","Utilidades de casa"),
+     ("Ar condicionado","Climatizadores");
+
+
+_____POPULANDO  A TABELA TB_PRODUTOS_________________________________________________
+
+insert into tb_produto (nome_produto,preco,produto_dispo,categoria_id) values 
+	("Fogao",300.00,true,1),
+	("Geladeira",1300.00,true,1),
+	("Microondas",450.00,true,1);
+    
+insert into tb_produto (nome_produto,preco,produto_dispo,categoria_id) values 
+	("Cama King",2765.00,true,2),
+   	("Criado Mudo",320.00,true,2),
+   	("Conjunto tolha de banho",200.00,true,2),
+	("Conjunto de Talheres",110.00,true,2);
+    
+insert into tb_produto (nome_produto,preco,produto_dispo,categoria_id) values  
+		("Mesa de Jantar",930.00,true,3),
+    	("Buffet 4 portas",727.00,true,3),
+    	("Rack 3 gavetas", 678.00,true,3);
+        
+insert into tb_produto (nome_produto,preco,produto_dispo,categoria_id) values  
+	("Moby",98.00,true,4),
+    	("Desengordurante",2.30,true,4),
+    	("Rodo tradicional",6.25,true,4);
+        
+insert into tb_produto (nome_produto,preco,produto_dispo,categoria_id) values          
+	("Ar condicionado de chao",890.00,true,5),
+    	("Aquecedor",187.00,true,5)
+
+____________________________________________________________________________
+Visualizando na tabela os produtos inseridos
+
+select*from tb_produto; 
+
+____________________________________________________________________________
+Retornando os produtos maiores que 50 reais.
+
+select*from tb_produto where preco < 50.00
+
+____________________________________________________________________________
+retornando produtos com valor entre 3 e 60 reais.
+
+select * from tb_produto where preco between 3 and 60;
+
+____________________________________________________________________________
+Utilizando o like e trazendo os produtos com a letra C
+
+select*from tb_produto where nome_produto like "%C%"
+
+____________________________________________________________________________
+Fazendo o inner join entre tabelas categoria e produto
+
+select*from tb_produto
+	inner join tb_categoria on tb_categoria.id = tb_produto.categoria_id
+____________________________________________________________________________
+Trazendo os produtos da categoria : Cama mesa e banho
+
+select tb_produto.nome_produto, tb_produto.preco, tb_categoria.nome
+	from tb_produto
+	inner join tb_categoria on tb_categoria.id = tb_produto.categoria_id
+    	where tb_categoria.nome like "%Cama%"
+
+
